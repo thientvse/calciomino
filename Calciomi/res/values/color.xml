@@ -2,9 +2,9 @@
 <resources>
 
     <color name="xanh_chu_dao">#0098db</color>
-    <color name="color_den">#303030</color>
-    <color name="color_xanh">#0021DB</color>
-    <color name="color_xanh_la">#00C203</color>
-    <color name="color_do">#FF0000</color>
+    <color name="color_den">#353637</color>
+    <color name="color_xanh">#0772b8</color>
+    <color name="color_xanh_la">#24b807</color>
+    <color name="color_do">#d70d0d</color>
 
 </resources>
