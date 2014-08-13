@@ -3,6 +3,8 @@
 
     <color name="xanh_chu_dao">#0098db</color>
     <color name="color_den">#353637</color>
+    <color name="color_xam">#e1e1e1</color>
+    <color name="color_xam_dam">#CCCCCC</color>
     <color name="color_xanh">#0772b8</color>
     <color name="color_xanh_la">#24b807</color>
     <color name="color_do">#d70d0d</color>
