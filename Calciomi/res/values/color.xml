@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="xanh_chu_dao">#0098db</color>
+    <color name="color_den">#303030</color>
+    <color name="color_xanh">#0021DB</color>
+    <color name="color_xanh_la">#00C203</color>
+    <color name="color_do">#FF0000</color>
+
+</resources>
