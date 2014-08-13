@@ -19,8 +19,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 public class MainActivity extends SlidingFragmentActivity {
@@ -29,6 +31,8 @@ public class MainActivity extends SlidingFragmentActivity {
 	MenuAdapter adapter;
 	ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
 	Fragment frag = null;
+	
+	ImageButton btnback;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +47,9 @@ public class MainActivity extends SlidingFragmentActivity {
 		
 		
 		addDataMenu();
-
+		
+		
+		btnback = (ImageButton) findViewById(R.id.btn_back);
 		listMenu = (ListView) findViewById(R.id.list_menu);
 		adapter = new MenuAdapter(MainActivity.this, menuItems);
 		listMenu.setAdapter(adapter);
@@ -86,7 +92,18 @@ public class MainActivity extends SlidingFragmentActivity {
 		            
 			}
 			
+		});
+		
+		init();
+	}
+	
+	void init(){
+		btnback.setOnClickListener(new OnClickListener() {
 			
+			@Override
+			public void onClick(View arg0) {
+				toggle(); 	
+			}
 		});
 	}
 	
