@@ -2,5 +2,6 @@
 <resources>
 
     <dimen name="size_time">15sp</dimen>
+    <dimen name="size_title">20sp</dimen>
 
 </resources>
