@@ -8,5 +8,8 @@
     <color name="color_xanh">#0772b8</color>
     <color name="color_xanh_la">#24b807</color>
     <color name="color_do">#d70d0d</color>
+    <color name="color_xanh_nhat">#eff4f5</color>
+    
+    <color name="color_xanh_dam">#006eb6</color>
 
 </resources>
