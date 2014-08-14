@@ -60,8 +60,8 @@ public class NewPostAdapter extends ArrayAdapter<ObjPost> {
 		}
 		
 		holder.txtCategory.setText(ObjPosts.get(position).getType());
-		holder.time.setText(ObjPosts.get(position).getTime());
-		holder.shortContent.setText(ObjPosts.get(position).getShortContent());
+		holder.time.setText(ObjPosts.get(position).getDateDay());
+		holder.shortContent.setText(ObjPosts.get(position).getTitle());
 		
 		
 		return v;

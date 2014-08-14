@@ -33,6 +33,8 @@ public class MainActivity extends SlidingFragmentActivity {
 	Fragment frag = null;
 	
 	ImageButton btnback;
+	
+	public static String mType = "home";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,7 @@ public class MainActivity extends SlidingFragmentActivity {
     	replaceFragment(frag);
 		
 		
-		listMenu.setOnItemClickListener(new OnItemClickListener() {
+		/*listMenu.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position,
@@ -69,19 +71,51 @@ public class MainActivity extends SlidingFragmentActivity {
 		        {
 		            case 0:
 		            	toggle();
-		                frag = new Home();
+//		                frag = new Home();
 		                break;
 		            case 1:
 		            	toggle();
-		                frag = new LongPost();
+//		                frag = new LongPost();
 		                break;
 		            case 2:
 		            	toggle();
-		                frag = new ShortPost();
+//		                frag = new ShortPost();
 		                break;
 		            case 3:
 		            	toggle();
-		                frag = new VideoPost();
+//		                frag = new VideoPost();
+		                break;
+		        }
+
+		        if (frag != null){
+		        	replaceFragment(frag);	
+		        } else {
+				}
+		            
+			}
+			
+		});*/
+    	
+    	listMenu.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View v, int position,
+					long id) {
+				
+
+		        switch(position)
+		        {
+		            case 0:
+		            	toggle();
+		                break;
+		            case 1:
+		            	toggle();
+		                break;
+		            case 2:
+		            	toggle();
+		                break;
+		            case 3:
+		            	toggle();
 		                break;
 		        }
 

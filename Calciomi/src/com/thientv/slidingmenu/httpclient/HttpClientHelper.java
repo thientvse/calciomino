@@ -25,7 +25,7 @@ public class HttpClientHelper {
 	private static final String UPDATE_DEVICEID = "/service/adevice.php";
 	
 	// get thong tin home
-	private static final String GET_HOME = "/json-exports/articles";
+	private static final String GET_LONG = "/json-exports/articles";
 	
 	
 	// khai bao context
@@ -52,13 +52,14 @@ public class HttpClientHelper {
 	public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
 		client.get(getAbsoluteUrl(BASE_URL, url), params, responseHandler);
 	}
-	
 	// phan rieng
 	public static void get(String url, AsyncHttpResponseHandler responseHandler) {
-		client.get(url, null, responseHandler);
+		Log.i("URL", url);
+		client.get(url, responseHandler);
 	}
 
 	public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+		Log.i("URL", url);
 		client.post(getAbsoluteUrl(BASE_URL,url), params, responseHandler);
 	}
 	
@@ -90,9 +91,9 @@ public class HttpClientHelper {
 	}
 	
 	// trang cai dat
-	public void getHomePost() {
-		post(GET_HOME, null, asyncHttpResponseHandler);
-		Log.i("URL", "URL: "+getUrlPostWithParams(BASE_URL, GET_HOME, null));
+	public void getLongPost() {
+		get(getAbsoluteUrl(BASE_URL, GET_LONG), asyncHttpResponseHandler);
+		Log.i("URL", "URL: "+getUrlPostWithParams(BASE_URL, GET_LONG, null));
 	}
 	
 	
