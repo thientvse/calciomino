@@ -24,8 +24,13 @@ public class HttpClientHelper {
 	//update device id
 	private static final String UPDATE_DEVICEID = "/service/adevice.php";
 	
-	// get thong tin home
+	// get thong tin long
 	private static final String GET_LONG = "/json-exports/articles";
+	// get thong tin short
+	private static final String GET_SHORT = "/json-exports/breves";
+	
+	// get thong tin video
+	private static final String GET_VIDEO = "/json-exports/videos";
 	
 	
 	// khai bao context
@@ -90,10 +95,22 @@ public class HttpClientHelper {
 		return base + relativeUrl + "/";
 	}
 	
-	// trang cai dat
+	// get long
 	public void getLongPost() {
 		get(getAbsoluteUrl(BASE_URL, GET_LONG), asyncHttpResponseHandler);
 		Log.i("URL", "URL: "+getUrlPostWithParams(BASE_URL, GET_LONG, null));
+	}
+	
+	// get short
+	public void getShortPost() {
+		get(getAbsoluteUrl(BASE_URL, GET_SHORT), asyncHttpResponseHandler);
+		Log.i("URL", "URL: "+getUrlPostWithParams(BASE_URL, GET_SHORT, null));
+	}
+	
+	// get short
+	public void getVideoPost() {
+		get(getAbsoluteUrl(BASE_URL, GET_VIDEO), asyncHttpResponseHandler);
+		Log.i("URL", "URL: "+getUrlPostWithParams(BASE_URL, GET_VIDEO, null));
 	}
 	
 	

@@ -3,10 +3,15 @@ package com.thientv.slidingmenu.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.thientv.calciomino.R;
 import com.thientv.slidingmenu.bean.ObjPost;
 
 import android.content.Context;
+import android.graphics.Bitmap.Config;
+import android.text.method.TextKeyListener.Capitalize;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +23,12 @@ public class NewPostAdapter extends ArrayAdapter<ObjPost> {
 	
 	Context context;
 	ArrayList<ObjPost> ObjPosts = new ArrayList<ObjPost>();
+	
+	DisplayImageOptions options = new DisplayImageOptions.Builder()
+								.cacheInMemory(false).cacheOnDisc(true)
+								.bitmapConfig(Config.RGB_565)
+								.displayer(new FadeInBitmapDisplayer(300))
+								.build();
 
 	public NewPostAdapter(Context context, ArrayList<ObjPost> ObjPosts) {
 		super(context, R.layout.item_post, ObjPosts);
@@ -59,10 +70,21 @@ public class NewPostAdapter extends ArrayAdapter<ObjPost> {
 			holder = (Holder) v.getTag();
 		}
 		
+		ImageLoader.getInstance().displayImage(ObjPosts.get(position).getUrlImage(), holder.image, options);
+		
+		
 		holder.txtCategory.setText(ObjPosts.get(position).getType());
+		
+		if (ObjPosts.get(position).getType().equals("articles")){
+			holder.txtCategory.setTextColor(getContext().getResources().getColor(R.color.color_xanh_la));
+			
+		} else if (ObjPosts.get(position).getType().equals("breves")) {
+			holder.txtCategory.setTextColor(getContext().getResources().getColor(R.color.color_xanh_dam));
+		} else if (ObjPosts.get(position).getType().equals("videos")) {
+			holder.txtCategory.setTextColor(getContext().getResources().getColor(R.color.color_do));
+		}
 		holder.time.setText(ObjPosts.get(position).getDateDay());
 		holder.shortContent.setText(ObjPosts.get(position).getTitle());
-		
 		
 		return v;
 	}

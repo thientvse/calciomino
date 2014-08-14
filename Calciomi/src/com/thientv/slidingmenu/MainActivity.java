@@ -2,21 +2,30 @@ package com.thientv.slidingmenu;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.slidingmenu.lib.app.SlidingActivity;
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.thientv.calciomino.R;
+import com.thientv.calciomino.database.MySQLiteHelper;
 import com.thientv.slidingmenu.adapter.MenuAdapter;
 import com.thientv.slidingmenu.bean.MenuItem;
+import com.thientv.slidingmenu.bean.ObjPost;
 import com.thientv.slidingmenu.fragment.Home;
 import com.thientv.slidingmenu.fragment.LongPost;
 import com.thientv.slidingmenu.fragment.ShortPost;
 import com.thientv.slidingmenu.fragment.VideoPost;
+import com.thientv.slidingmenu.httpclient.HttpClientHelper;
+import com.thientv.slidingmenu.httpclient.MyJsonHttpResponseHandler;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,6 +44,34 @@ public class MainActivity extends SlidingFragmentActivity {
 	ImageButton btnback;
 	
 	public static String mType = "home";
+	
+	MySQLiteHelper db;
+	
+	
+	Handler mHandler = new Handler();
+	
+	Runnable rLong = new Runnable() {
+		
+		@Override
+		public void run() {
+			getArticle();
+		}
+	};
+	Runnable rShort = new Runnable() {
+		
+		@Override
+		public void run() {
+			getShort();
+		}
+	};
+	
+	Runnable rVideo = new Runnable() {
+		
+		@Override
+		public void run() {
+			getVideo();
+		}
+	};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -48,7 +85,13 @@ public class MainActivity extends SlidingFragmentActivity {
 		getSlidingMenu().setShadowWidth((int) 10f);
 		
 		
+		db = new MySQLiteHelper(MainActivity.this);
+		
 		addDataMenu();
+		
+		mHandler.post(rLong);
+		mHandler.post(rShort);
+		mHandler.post(rVideo);
 		
 		
 		btnback = (ImageButton) findViewById(R.id.btn_back);
@@ -60,7 +103,7 @@ public class MainActivity extends SlidingFragmentActivity {
     	replaceFragment(frag);
 		
 		
-		/*listMenu.setOnItemClickListener(new OnItemClickListener() {
+		listMenu.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position,
@@ -71,51 +114,19 @@ public class MainActivity extends SlidingFragmentActivity {
 		        {
 		            case 0:
 		            	toggle();
-//		                frag = new Home();
+		                frag = new Home();
 		                break;
 		            case 1:
 		            	toggle();
-//		                frag = new LongPost();
+		                frag = new LongPost();
 		                break;
 		            case 2:
 		            	toggle();
-//		                frag = new ShortPost();
+		                frag = new ShortPost();
 		                break;
 		            case 3:
 		            	toggle();
-//		                frag = new VideoPost();
-		                break;
-		        }
-
-		        if (frag != null){
-		        	replaceFragment(frag);	
-		        } else {
-				}
-		            
-			}
-			
-		});*/
-    	
-    	listMenu.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View v, int position,
-					long id) {
-				
-
-		        switch(position)
-		        {
-		            case 0:
-		            	toggle();
-		                break;
-		            case 1:
-		            	toggle();
-		                break;
-		            case 2:
-		            	toggle();
-		                break;
-		            case 3:
-		            	toggle();
+		                frag = new VideoPost();
 		                break;
 		        }
 
@@ -127,6 +138,7 @@ public class MainActivity extends SlidingFragmentActivity {
 			}
 			
 		});
+    	
 		
 		init();
 	}
@@ -158,4 +170,169 @@ public class MainActivity extends SlidingFragmentActivity {
 	public void showMenu(){
 		showMenu();
 	}
+	
+	//---------------- get article --------------------//
+	public void getArticle(){
+		HttpClientHelper httpClientHelper = new HttpClientHelper(new MyJsonHttpResponseHandler(){
+
+			@Override
+			public void onFailure(Throwable error) {
+			}
+
+			@Override
+			public void onSuccess(JSONArray re) {
+				// insert
+				for (int i = 0; i < re.length(); i++) {
+					try {
+						JSONObject jo = re.getJSONObject(i);
+						Log.i("DATA", "NEWS: "+jo.toString());
+						JSONObject news = jo.getJSONObject("news");
+						
+						ObjPost objPost = new ObjPost();
+						
+						int id = news.getInt("id");
+						String type = jo.getString("type");
+						String urlImage = news.getString("image");
+						String urlPost = news.getString("url");
+						String author = news.getString("author");
+						String dateDay = news.getString("date_day");
+						String dateHour = news.getString("date_hour");
+						String title = news.getString("title");
+						String content = news.getString("content");
+						
+						
+						objPost.setId(id);
+						objPost.setType(type);
+						objPost.setUrlImage(urlImage);
+						objPost.setUrlPost(urlPost);
+						objPost.setAuthor(author);
+						objPost.setDateDay(dateDay);
+						objPost.setDateHour(dateHour);
+						objPost.setTitle(title);
+						objPost.setContent(content);
+						
+						db.insertNew(objPost);
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				
+			}
+
+			
+		});
+		
+		httpClientHelper.getLongPost();
+	}
+	
+	//-------------- get short --------------------//
+	public void getShort(){
+		HttpClientHelper httpClientHelper = new HttpClientHelper(new MyJsonHttpResponseHandler(){
+
+			@Override
+			public void onFailure(Throwable error) {
+			}
+
+			@Override
+			public void onSuccess(JSONArray re) {
+				// insert
+				for (int i = 0; i < re.length(); i++) {
+					try {
+						JSONObject jo = re.getJSONObject(i);
+						Log.i("DATA", "NEWS: "+jo.toString());
+						JSONObject news = jo.getJSONObject("news");
+						
+						ObjPost objPost = new ObjPost();
+						
+						int id = news.getInt("id");
+						String type = jo.getString("type");
+						String urlImage = news.getString("image");
+						String urlPost = news.getString("url");
+						String author = news.getString("author");
+						String dateDay = news.getString("date_day");
+						String dateHour = news.getString("date_hour");
+						String title = news.getString("title");
+						String content = news.getString("content");
+						
+						
+						objPost.setId(id);
+						objPost.setType(type);
+						objPost.setUrlImage(urlImage);
+						objPost.setUrlPost(urlPost);
+						objPost.setAuthor(author);
+						objPost.setDateDay(dateDay);
+						objPost.setDateHour(dateHour);
+						objPost.setTitle(title);
+						objPost.setContent(content);
+						
+						db.insertNew(objPost);
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				
+			}
+
+			
+		});
+		
+		httpClientHelper.getShortPost();
+	}
+	
+	//-------------- get video --------------------//
+		public void getVideo(){
+			HttpClientHelper httpClientHelper = new HttpClientHelper(new MyJsonHttpResponseHandler(){
+
+				@Override
+				public void onFailure(Throwable error) {
+				}
+
+				@Override
+				public void onSuccess(JSONArray re) {
+					// insert
+					for (int i = 0; i < re.length(); i++) {
+						try {
+							JSONObject jo = re.getJSONObject(i);
+							Log.i("DATA", "NEWS: "+jo.toString());
+							JSONObject news = jo.getJSONObject("news");
+							
+							ObjPost objPost = new ObjPost();
+							
+							int id = news.getInt("id");
+							String type = jo.getString("type");
+							String urlImage = news.getString("image");
+							String urlPost = news.getString("url");
+							String author = news.getString("author");
+							String dateDay = news.getString("date_day");
+							String dateHour = news.getString("date_hour");
+							String title = news.getString("title");
+							String content = news.getString("content");
+							
+							
+							objPost.setId(id);
+							objPost.setType(type);
+							objPost.setUrlImage(urlImage);
+							objPost.setUrlPost(urlPost);
+							objPost.setAuthor(author);
+							objPost.setDateDay(dateDay);
+							objPost.setDateHour(dateHour);
+							objPost.setTitle(title);
+							objPost.setContent(content);
+							
+							db.insertNew(objPost);
+							
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+					
+				}
+
+				
+			});
+			
+			httpClientHelper.getVideoPost();
+		}
 }
