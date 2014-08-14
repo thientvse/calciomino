@@ -11,6 +11,7 @@ import com.thientv.slidingmenu.bean.ObjPost;
 
 import android.content.Context;
 import android.graphics.Bitmap.Config;
+import android.text.Html;
 import android.text.method.TextKeyListener.Capitalize;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,7 +85,7 @@ public class NewPostAdapter extends ArrayAdapter<ObjPost> {
 			holder.txtCategory.setTextColor(getContext().getResources().getColor(R.color.color_do));
 		}
 		holder.time.setText(ObjPosts.get(position).getDateDay());
-		holder.shortContent.setText(ObjPosts.get(position).getTitle());
+		holder.shortContent.setText(Html.fromHtml(ObjPosts.get(position).getTitle()));
 		
 		return v;
 	}
