@@ -85,7 +85,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 		ArrayList<ObjPost> objPosts = new ArrayList<ObjPost>();
 		
 		SQLiteDatabase db = this.getReadableDatabase();
-		String query = "SELECT * FROM "+TABLE_NEWS + " WHERE "+KEY_TYPE+" = '"+type+"'";
+		String query = "SELECT * FROM "+TABLE_NEWS + " WHERE "+KEY_TYPE+" = '"+type+"'"+ " ORDER BY "+KEY_DATE_DAY+ " DESC LIMIT 50" ;
 		Log.i("SQL", "SQL: "+query);
 		
 		Cursor c = db.rawQuery(query, null);
