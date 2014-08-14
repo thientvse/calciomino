@@ -17,8 +17,8 @@
             android:id="@+id/img_avatar"
             android:layout_width="60dp"
             android:layout_height="50dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/image_post" />
+            android:background="@color/color_xam_dam"
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/txt_time_ago"
