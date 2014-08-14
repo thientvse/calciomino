@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.thientv.calciomino.DetailPostActivity;
 import com.thientv.calciomino.R;
+import com.thientv.calciomino.database.MySQLiteHelper;
 import com.thientv.slidingmenu.adapter.NewPostAdapter;
 import com.thientv.slidingmenu.bean.ObjPost;
 
@@ -24,14 +25,24 @@ public class ShortPost extends Fragment {
 	ListView listHome;
 	NewPostAdapter adapter;
 	ArrayList<ObjPost> objPosts = new ArrayList<ObjPost>();
+	
+	MySQLiteHelper db;
+	
+	void getDataFromDB(){
+		objPosts = db.getNew("breves");
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.frg_short, container, false);
 
+		db = new MySQLiteHelper(getActivity());
+		
 		btnBack = (ImageButton) v.findViewById(R.id.btn_back);
-		addDataDemo();
+//		addDataDemo();
+		getDataFromDB();
+		
 		listHome = (ListView) v.findViewById(R.id.list_short);
 		adapter = new NewPostAdapter(getActivity(), objPosts);
 		listHome.setAdapter(adapter);

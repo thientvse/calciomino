@@ -18,6 +18,7 @@ import android.widget.ListView;
 
 import com.thientv.calciomino.DetailPostActivity;
 import com.thientv.calciomino.R;
+import com.thientv.calciomino.database.MySQLiteHelper;
 import com.thientv.slidingmenu.adapter.NewPostAdapter;
 import com.thientv.slidingmenu.bean.ObjPost;
 
@@ -27,15 +28,26 @@ public class Home extends Fragment {
 	ListView listHome;
 	NewPostAdapter adapter;
 	ArrayList<ObjPost> objPosts = new ArrayList<ObjPost>();
+	
+	MySQLiteHelper db;
+	
+	void getDataFromDB(){
+		objPosts = db.getHome();
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.frg_home, container, false);
 
+		db = new MySQLiteHelper(getActivity());
+		
 		
 		btnBack = (ImageButton) v.findViewById(R.id.btn_back);
-		addDataDemo();
+		
+		getDataFromDB();
+		
+//		addDataDemo();
 		listHome = (ListView) v.findViewById(R.id.list_home);
 		adapter = new NewPostAdapter(getActivity(), objPosts);
 		listHome.setAdapter(adapter);

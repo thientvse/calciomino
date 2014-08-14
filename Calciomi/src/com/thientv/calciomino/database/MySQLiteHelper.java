@@ -114,5 +114,39 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 		return objPosts;
 	}
 	
+	public ArrayList<ObjPost> getHome(){
+		
+		ArrayList<ObjPost> objPosts = new ArrayList<ObjPost>();
+		
+		SQLiteDatabase db = this.getReadableDatabase();
+		String query = "SELECT * FROM "+TABLE_NEWS + " ORDER BY "+KEY_DATE_DAY+ " DESC LIMIT 50";
+		Log.i("SQL", "SQL: "+query);
+		
+		Cursor c = db.rawQuery(query, null);
+		if (c.moveToFirst()){
+			do {
+				ObjPost objPost = new ObjPost();
+				
+				objPost.setId(c.getInt(c.getColumnIndex(KEY_ID_NEW)));
+				objPost.setType(c.getString(c.getColumnIndex(KEY_TYPE)));
+				objPost.setUrlPost(c.getString(c.getColumnIndex(KEY_URL)));
+				objPost.setUrlImage(c.getString(c.getColumnIndex(KEY_URL_IMAGE)));
+				objPost.setAuthor(c.getString(c.getColumnIndex(KEY_AUTHOR)));
+				objPost.setDateDay(c.getString(c.getColumnIndex(KEY_DATE_DAY)));
+				objPost.setDateHour(c.getString(c.getColumnIndex(KEY_DATE_HOUR)));
+				objPost.setTitle(c.getString(c.getColumnIndex(KEY_TITLE)));
+				objPost.setContent(c.getString(c.getColumnIndex(KEY_CONTENT)));
+				
+				objPosts.add(objPost);
+				
+			} while (c.moveToNext());
+			
+		}
+		c.close();
+		db.close();
+		
+		return objPosts;
+	}
+	
 	
 }

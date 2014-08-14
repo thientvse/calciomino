@@ -55,9 +55,6 @@ public class LongPost extends Fragment {
 	
 	void getDataFromDB(){
 		objPosts = db.getNew("articles");
-		adapter = new NewPostAdapter(getActivity(), objPosts);
-		listHome.setAdapter(adapter);
-		adapter.notifyDataSetChanged();
 	}
 
 	@Override
@@ -70,7 +67,9 @@ public class LongPost extends Fragment {
 		
 //		addDataDemo();
 		
-		getArticle();
+//		getArticle();
+		
+		getDataFromDB();
 		
 //		new AsyncTaskParseJson().execute();
 		listHome = (ListView) v.findViewById(R.id.list_long);
