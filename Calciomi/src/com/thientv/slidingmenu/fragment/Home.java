@@ -58,6 +58,7 @@ public class Home extends Fragment {
 			public void onItemClick(AdapterView<?> arg0, View v, int position,
 					long id) {
 				Intent t = new Intent(getActivity(), DetailPostActivity.class);
+				t.putExtra("post", objPosts.get(position));
 				startActivity(t);
 			}
 			

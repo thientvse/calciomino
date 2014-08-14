@@ -1,6 +1,10 @@
 package com.thientv.slidingmenu.bean;
 
-public class ObjPost {
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class ObjPost implements Parcelable{
 
 	int id;
 	String type;
@@ -97,5 +101,45 @@ public class ObjPost {
 	public void setUrlImage(String urlImage) {
 		this.urlImage = urlImage;
 	}
+	
+	public ObjPost(Parcel in){
+		id = in.readInt();
+		type = in.readString();
+		urlPost = in.readString();
+		author = in.readString();
+		dateDay = in.readString();
+		dateHour = in.readString();
+		title = in.readString();
+		content = in.readString();
+		urlImage = in.readString();
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(id);
+		dest.writeString(type);
+		dest.writeString(urlPost);
+		dest.writeString(author);
+		dest.writeString(dateDay);
+		dest.writeString(dateHour);
+		dest.writeString(title);
+		dest.writeString(content);
+		dest.writeString(urlImage);
+	}
+	
+	public static final Parcelable.Creator<ObjPost> CREATOR = new Parcelable.Creator<ObjPost>() {
+		public ObjPost createFromParcel(Parcel in) {
+			return new ObjPost(in);
+		}
+
+		public ObjPost[] newArray(int size) {
+			return new ObjPost[size];
+		}
+	};
 
 }
