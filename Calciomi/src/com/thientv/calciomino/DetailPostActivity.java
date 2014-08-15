@@ -31,6 +31,8 @@ public class DetailPostActivity extends Activity implements OnTouchListener{
 	
 	ArrayList<ObjPost> objPosts = new ArrayList<ObjPost>();
 	
+	String type;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,8 +41,19 @@ public class DetailPostActivity extends Activity implements OnTouchListener{
 		db = new MySQLiteHelper(this);
 		
 		objPost = getIntent().getParcelableExtra("post");
+		type = getIntent().getStringExtra("type");
 		
-		objPosts = db.getHome();
+		if (type.equals("home")){
+			objPosts = db.getHome();
+		} else if (type.equals("articles")) {
+			objPosts = db.getNew(type);
+		} else if (type.equals("breves")) {
+			objPosts = db.getNew(type);
+		} else if (type.equals("videos")) {
+			objPosts = db.getNew(type);
+		}
+		
+		
 		
 		
 		btnBack = (ImageButton) findViewById(R.id.btn_back);
