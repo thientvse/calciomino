@@ -1,10 +1,9 @@
 package com.thientv.slidingmenu.bean;
 
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class ObjPost implements Parcelable{
+public class ObjPost implements Parcelable {
 
 	int id;
 	String type;
@@ -12,12 +11,14 @@ public class ObjPost implements Parcelable{
 
 	String author;
 
+	int dateUnix;
 	String dateDay;
 	String dateHour;
 
 	String title;
 	String content;
 	String urlImage;
+	String urlVideo;
 
 	public ObjPost() {
 
@@ -28,6 +29,22 @@ public class ObjPost implements Parcelable{
 		this.type = type;
 		this.dateDay = time;
 		this.title = title;
+	}
+
+	public String getUrlVideo() {
+		return urlVideo;
+	}
+
+	public void setUrlVideo(String urlVideo) {
+		this.urlVideo = urlVideo;
+	}
+
+	public int getDateUnix() {
+		return dateUnix;
+	}
+
+	public void setDateUnix(int dateUnix) {
+		this.dateUnix = dateUnix;
 	}
 
 	public int getId() {
@@ -101,17 +118,19 @@ public class ObjPost implements Parcelable{
 	public void setUrlImage(String urlImage) {
 		this.urlImage = urlImage;
 	}
-	
-	public ObjPost(Parcel in){
+
+	public ObjPost(Parcel in) {
 		id = in.readInt();
 		type = in.readString();
 		urlPost = in.readString();
 		author = in.readString();
+		dateUnix = in.readInt();
 		dateDay = in.readString();
 		dateHour = in.readString();
 		title = in.readString();
 		content = in.readString();
 		urlImage = in.readString();
+		urlVideo = in.readString();
 	}
 
 	@Override
@@ -125,13 +144,15 @@ public class ObjPost implements Parcelable{
 		dest.writeString(type);
 		dest.writeString(urlPost);
 		dest.writeString(author);
+		dest.writeInt(dateUnix);
 		dest.writeString(dateDay);
 		dest.writeString(dateHour);
 		dest.writeString(title);
 		dest.writeString(content);
 		dest.writeString(urlImage);
+		dest.writeString(urlVideo);
 	}
-	
+
 	public static final Parcelable.Creator<ObjPost> CREATOR = new Parcelable.Creator<ObjPost>() {
 		public ObjPost createFromParcel(Parcel in) {
 			return new ObjPost(in);
