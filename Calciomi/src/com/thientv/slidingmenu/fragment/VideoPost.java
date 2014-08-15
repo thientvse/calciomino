@@ -28,7 +28,7 @@ public class VideoPost extends Fragment{
 	MySQLiteHelper db;
 	
 	void getDataFromDB(){
-		objPosts = db.getNew("videos");
+		objPosts = db.getNew("videos", 50);
 	}
 	
 	@Override
@@ -54,6 +54,8 @@ public class VideoPost extends Fragment{
 					long id) {
 				Intent t = new Intent(getActivity(), DetailPostActivity.class);
 				t.putExtra("type", "videos");
+				t.putExtra("postion", position);
+				t.putExtra("post", objPosts.get(position));
 				startActivity(t);
 			}
 

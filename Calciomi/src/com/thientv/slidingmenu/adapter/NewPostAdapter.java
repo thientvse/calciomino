@@ -77,10 +77,10 @@ public class NewPostAdapter extends ArrayAdapter<ObjPost> {
 		
 		holder.txtCategory.setText(Utils.toOnlyFirstUpcase(ObjPosts.get(position).getType()));
 		
-		if (ObjPosts.get(position).getType().equals("articles")){
+		if (ObjPosts.get(position).getType().equals("breves")){
 			holder.txtCategory.setTextColor(getContext().getResources().getColor(R.color.color_xanh_dam));
 			
-		} else if (ObjPosts.get(position).getType().equals("breves")) {
+		} else if (ObjPosts.get(position).getType().equals("articles")) {
 			holder.txtCategory.setTextColor(getContext().getResources().getColor(R.color.color_xanh_la));
 		} else if (ObjPosts.get(position).getType().equals("videos")) {
 			holder.txtCategory.setTextColor(getContext().getResources().getColor(R.color.color_do));

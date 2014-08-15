@@ -161,10 +161,10 @@ public class MainActivity extends SlidingFragmentActivity {
     }
 
 	void addDataMenu() {
-		menuItems.add(new MenuItem("Home", R.color.color_den));
-		menuItems.add(new MenuItem("Long Post", R.color.color_xanh));
-		menuItems.add(new MenuItem("Short Post", R.color.color_xanh_la));
-		menuItems.add(new MenuItem("Video Post", R.color.color_do));
+		menuItems.add(new MenuItem("Accueil", R.color.color_den));
+		menuItems.add(new MenuItem("Brèves", R.color.color_xanh));
+		menuItems.add(new MenuItem("Articles", R.color.color_xanh_la));
+		menuItems.add(new MenuItem("Vidéos", R.color.color_do));
 	}
 	
 	public void showMenu(){

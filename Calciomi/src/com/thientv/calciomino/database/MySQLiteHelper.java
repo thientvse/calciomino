@@ -80,12 +80,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 	}
 	
 	//-------------------getdata-----------------//
-	public ArrayList<ObjPost> getNew(String type){
+	public ArrayList<ObjPost> getNew(String type, int limit){
 		
 		ArrayList<ObjPost> objPosts = new ArrayList<ObjPost>();
 		
 		SQLiteDatabase db = this.getReadableDatabase();
-		String query = "SELECT * FROM "+TABLE_NEWS + " WHERE "+KEY_TYPE+" = '"+type+"'"+ " ORDER BY "+KEY_DATE_DAY+ " DESC LIMIT 50" ;
+		String query = "SELECT * FROM "+TABLE_NEWS + " WHERE "+KEY_TYPE+" = '"+type+"'"+ " ORDER BY "+KEY_DATE_DAY+ " DESC LIMIT "+limit ;
 		Log.i("SQL", "SQL: "+query);
 		
 		Cursor c = db.rawQuery(query, null);
@@ -114,12 +114,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 		return objPosts;
 	}
 	
-	public ArrayList<ObjPost> getHome(){
+	public ArrayList<ObjPost> getHome(int limit){
 		
 		ArrayList<ObjPost> objPosts = new ArrayList<ObjPost>();
 		
 		SQLiteDatabase db = this.getReadableDatabase();
-		String query = "SELECT * FROM "+TABLE_NEWS + " ORDER BY "+KEY_DATE_DAY+ " DESC LIMIT 50";
+		String query = "SELECT * FROM "+TABLE_NEWS + " ORDER BY "+KEY_DATE_DAY+ " DESC LIMIT "+limit;
 		Log.i("SQL", "SQL: "+query);
 		
 		Cursor c = db.rawQuery(query, null);
@@ -147,6 +147,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 		
 		return objPosts;
 	}
+	
+	//------------------------ get 5 tin ---------------//
+	
 	
 	
 }
