@@ -53,6 +53,7 @@ public class VideoPost extends Fragment{
 			public void onItemClick(AdapterView<?> arg0, View v, int position,
 					long id) {
 				Intent t = new Intent(getActivity(), DetailPostActivity.class);
+				t.putExtra("type", "videos");
 				startActivity(t);
 			}
 
