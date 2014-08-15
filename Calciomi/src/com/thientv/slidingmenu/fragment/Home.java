@@ -62,6 +62,7 @@ public class Home extends Fragment {
 				t.putExtra("type", "home");
 				t.putExtra("postion", position);
 				startActivity(t);
+				getActivity().overridePendingTransition(R.anim.trans_left_in, R.anim.over_main_left);
 			}
 			
 		});

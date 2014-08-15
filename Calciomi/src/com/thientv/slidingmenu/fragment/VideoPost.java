@@ -57,6 +57,7 @@ public class VideoPost extends Fragment{
 				t.putExtra("postion", position);
 				t.putExtra("post", objPosts.get(position));
 				startActivity(t);
+				getActivity().overridePendingTransition(R.anim.trans_left_in, R.anim.over_main_left);
 			}
 
 		});
