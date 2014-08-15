@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.thientv.calciomino.R;
 import com.thientv.slidingmenu.bean.ObjPost;
+import com.thientv.slidingmenu.utils.Utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -50,6 +51,7 @@ public class ViewPagerFeedAdapter extends PagerAdapter{
 		TextView txtType;
 		TextView txtTitle;
 		TextView dataTime;
+		TextView content;
 		
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View v = inflater.inflate(R.layout.item_viewpager, container, false);
@@ -57,20 +59,22 @@ public class ViewPagerFeedAdapter extends PagerAdapter{
 		txtType = (TextView) v.findViewById(R.id.txt_type);
 		txtTitle = (TextView) v.findViewById(R.id.txt_title);
 		dataTime = (TextView) v.findViewById(R.id.txt_time);
+		content = (TextView) v.findViewById(R.id.txt_content);
 		
 		
-		txtType.setText(objPosts.get(position).getType());
-		if (objPosts.get(position).getType().equals("articles")){
+		txtType.setText(Utils.toOnlyFirstUpcase(objPosts.get(position).getType()));
+		if (objPosts.get(position).getType().equals("breves")){
 			txtType.setTextColor(context.getResources().getColor(R.color.color_xanh_la));
-		} else if (objPosts.get(position).getType().equals("breves")) {
+		} else if (objPosts.get(position).getType().equals("articles")) {
 			txtType.setTextColor(context.getResources().getColor(R.color.color_xanh_dam));
 		} else if (objPosts.get(position).getType().equals("videos")) {
 			txtType.setTextColor(context.getResources().getColor(R.color.color_do));
 		}
 		
 		txtTitle.setText(Html.fromHtml(objPosts.get(position).getTitle()));
-		dataTime.setText(objPosts.get(position).getDateDay());
+		dataTime.setText(objPosts.get(position).getDateDay()+" - "+objPosts.get(position).getDateHour()+" - "+ objPosts.get(position).getAuthor());
 		
+		content.setText(Html.fromHtml(objPosts.get(position).getContent()));
 		
 		// add viewpager item to viewpager
 		((ViewPager) container).addView(v);

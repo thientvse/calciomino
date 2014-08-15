@@ -54,7 +54,7 @@ public class LongPost extends Fragment {
 	};
 	
 	void getDataFromDB(){
-		objPosts = db.getNew("articles");
+		objPosts = db.getNew("breves", 50);
 	}
 
 	@Override
@@ -83,6 +83,8 @@ public class LongPost extends Fragment {
 					long id) {
 				Intent t = new Intent(getActivity(), DetailPostActivity.class);
 				t.putExtra("type", "articles");
+				t.putExtra("postion", position);
+				t.putExtra("post", objPosts.get(position));
 				startActivity(t);
 			}
 

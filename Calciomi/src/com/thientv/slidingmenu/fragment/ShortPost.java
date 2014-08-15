@@ -29,7 +29,7 @@ public class ShortPost extends Fragment {
 	MySQLiteHelper db;
 	
 	void getDataFromDB(){
-		objPosts = db.getNew("breves");
+		objPosts = db.getNew("articles", 50);
 	}
 
 	@Override
@@ -53,7 +53,9 @@ public class ShortPost extends Fragment {
 			public void onItemClick(AdapterView<?> arg0, View v, int position,
 					long id) {
 				Intent t = new Intent(getActivity(), DetailPostActivity.class);
-				t.putExtra("type", "breves");
+				t.putExtra("type", "articles");
+				t.putExtra("postion", position);
+				t.putExtra("post", objPosts.get(position));
 				startActivity(t);
 			}
 

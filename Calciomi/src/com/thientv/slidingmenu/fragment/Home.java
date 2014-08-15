@@ -32,7 +32,7 @@ public class Home extends Fragment {
 	MySQLiteHelper db;
 	
 	void getDataFromDB(){
-		objPosts = db.getHome();
+		objPosts = db.getHome(50);
 	}
 
 	@Override
@@ -60,6 +60,7 @@ public class Home extends Fragment {
 				Intent t = new Intent(getActivity(), DetailPostActivity.class);
 				t.putExtra("post", objPosts.get(position));
 				t.putExtra("type", "home");
+				t.putExtra("postion", position);
 				startActivity(t);
 			}
 			
