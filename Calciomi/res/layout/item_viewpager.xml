@@ -38,7 +38,7 @@
                     android:layout_marginLeft="15dp"
                     android:text="Tavecchio Ex-Futur président de la fédération italienne ?"
                     android:textColor="@color/color_xanh_dam"
-                    android:textSize="@dimen/size_medium"
+                    android:textSize="@dimen/size_title"
                     android:textStyle="bold" />
 
                 <TextView
@@ -58,13 +58,21 @@
                     android:layout_marginRight="15dp"
                     android:background="@color/color_xam_dam" />
 
-                <TextView
+                <com.thientv.slidingmenu.utils.TextViewEx
                     android:id="@+id/txt_content"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:padding="10dp"
-                    android:text="Content" />
+                    android:layout_marginLeft="-10dp"
+                    android:layout_marginRight="-10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Content"
+                    android:textSize="@dimen/size_medium"
+                    android:visibility="gone" />
+
+                <WebView
+                    android:id="@+id/webview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
                 <FrameLayout
                     android:id="@+id/frame_youtube"
