@@ -3,6 +3,7 @@
 
     <dimen name="size_medium">15sp</dimen>
     <dimen name="size_small">12sp</dimen>
+    <dimen name="size_title">18sp</dimen>
     <dimen name="size_large">20sp</dimen>
 
 </resources>
