@@ -11,5 +11,11 @@
     <color name="color_xanh_nhat">#eff4f5</color>
     
     <color name="color_xanh_dam">#006eb6</color>
-
+    
+    <color name="color_xam_den">#6e6e6e</color>
+    
+    <color name="color_time">#7D7D7D</color>
+    
+    
+	
 </resources>

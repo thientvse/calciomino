@@ -28,8 +28,8 @@
             android:layout_alignTop="@+id/linearLayout1"
             android:layout_marginRight="5dp"
             android:text="11/08/2014"
-            android:textColor="@color/color_xam_dam"
-            android:textSize="@dimen/size_time" />
+            android:textColor="@color/color_time"
+            android:textSize="@dimen/size_small" />
 
         <LinearLayout
             android:id="@+id/linearLayout1"
@@ -45,13 +45,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ARTICLE"
-                android:textColor="@color/color_xanh_la" />
+                android:textColor="@color/color_xanh_la"
+                android:textSize="@dimen/size_medium" />
 
             <TextView
                 android:id="@+id/txt_short_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tavecchio Ex-Futur président de la fédération italienne ?" />
+                android:text="Tavecchio Ex-Futur président de la fédération italienne ?"
+                android:textSize="@dimen/size_medium" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -59,6 +61,7 @@
         android:id="@+id/view1"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/color_den" />
+        android:layout_marginLeft="70dp"
+        android:background="@color/color_xam_den" />
 
 </LinearLayout>
