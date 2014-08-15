@@ -59,6 +59,7 @@ public class Home extends Fragment {
 					long id) {
 				Intent t = new Intent(getActivity(), DetailPostActivity.class);
 				t.putExtra("post", objPosts.get(position));
+				t.putExtra("type", "home");
 				startActivity(t);
 			}
 			
