@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -45,6 +46,8 @@ public class DetailPostActivity extends Activity implements OnTouchListener{
 	NewPostAdapter pAdapter;
 	ListView lsNear;
 	ArrayList<ObjPost> nears = new ArrayList<ObjPost>();
+	
+	Button btnPrev, btnNext;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +84,9 @@ public class DetailPostActivity extends Activity implements OnTouchListener{
 		
 		btnShare = (ImageButton) findViewById(R.id.btn_share);
 		
+		btnPrev = (Button) findViewById(R.id.btn_prev);
+		btnNext = (Button) findViewById(R.id.btn_next);
+		
 		lsNear = (ListView) findViewById(R.id.list_near);
 		pAdapter = new NewPostAdapter(DetailPostActivity.this, nears);
 		lsNear.setAdapter(pAdapter);
@@ -100,6 +106,8 @@ public class DetailPostActivity extends Activity implements OnTouchListener{
 	void init(){
 		btnBack.setOnTouchListener(this);
 		btnShare.setOnTouchListener(this);
+		btnNext.setOnTouchListener(this);
+		btnPrev.setOnTouchListener(this);
 	}
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
@@ -113,6 +121,28 @@ public class DetailPostActivity extends Activity implements OnTouchListener{
 		case R.id.btn_share:
 			if (event.getAction() == MotionEvent.ACTION_UP){
 				shareTextUrl();
+			}
+			break;
+		case R.id.btn_prev:
+			if (event.getAction() == MotionEvent.ACTION_UP){
+				if (position < 1){
+					
+				}else {
+					pager.setCurrentItem(position-1);
+					position = position-1;
+				}
+				
+			}
+			break;
+		case R.id.btn_next:
+			if (event.getAction() == MotionEvent.ACTION_UP){
+				if (position > 48){
+					
+				}else {
+					pager.setCurrentItem(position+1);
+					position = position+1;
+				}
+				
 			}
 			break;
 		}

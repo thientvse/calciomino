@@ -40,7 +40,6 @@ public class ShortPost extends Fragment {
 		db = new MySQLiteHelper(getActivity());
 		
 		btnBack = (ImageButton) v.findViewById(R.id.btn_back);
-//		addDataDemo();
 		getDataFromDB();
 		
 		listHome = (ListView) v.findViewById(R.id.list_short);
@@ -64,29 +63,5 @@ public class ShortPost extends Fragment {
 		return v;
 	}
 
-	void addDataDemo() {
-		objPosts.add(new ObjPost("ARTICLE", "13/08/2014",
-				"Tavecchio Ex-Futur président de la fédération italienne ?"));
-		objPosts.add(new ObjPost("SHORT", "13/08/2014",
-				"Retour sur la performance du Milan AC face à Manchester City : "));
-		objPosts.add(new ObjPost("VIDEO", "13/08/2014",
-				"Le splendide lob de Pjanic contre Manchester"));
-		objPosts.add(new ObjPost("SHORT", "13/08/2014",
-				"Tavecchio Ex-Futur président de la fédération italienne ?"));
-		objPosts.add(new ObjPost("ARTICLE", "13/08/2014",
-				"Le splendide lob de Pjanic contre Manchester"));
-		objPosts.add(new ObjPost("ARTICLE", "13/08/2014",
-				"Le splendide lob de Pjanic contre Manchester"));
-		objPosts.add(new ObjPost("ARTICLE", "13/08/2014",
-				"Tavecchio Ex-Futur président de la fédération italienne ?"));
-		objPosts.add(new ObjPost("VIDEO", "13/08/2014",
-				"Le splendide lob de Pjanic contre Manchester"));
-		objPosts.add(new ObjPost("ARTICLE", "13/08/2014",
-				"Tavecchio Ex-Futur président de la fédération italienne ?"));
-		objPosts.add(new ObjPost("SHORT", "13/08/2014",
-				"Le splendide lob de Pjanic contre Manchester"));
-		objPosts.add(new ObjPost("ARTICLE", "13/08/2014",
-				"Tavecchio Ex-Futur président de la fédération italienne ?"));
-	}
 
 }
