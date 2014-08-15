@@ -37,6 +37,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -92,6 +93,7 @@ public class ViewPagerFeedAdapter extends PagerAdapter{
 		FrameLayout frYoutube;
 		ImageView image_thumbnail;
 		ImageButton btnPlay;
+		WebView webView;
 		
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View v = inflater.inflate(R.layout.item_viewpager, container, false);
@@ -105,7 +107,7 @@ public class ViewPagerFeedAdapter extends PagerAdapter{
 		image_thumbnail = (ImageView) v.findViewById(R.id.img_thumnail);
 		
 		btnPlay = (ImageButton) v.findViewById(R.id.btn_play);
-		
+		webView = (WebView) v.findViewById(R.id.webview);
 		
 		txtType.setText(Utils.toOnlyFirstUpcase(objPosts.get(position).getType()));
 		if (objPosts.get(position).getType().equals("articles")){
@@ -119,11 +121,10 @@ public class ViewPagerFeedAdapter extends PagerAdapter{
 		txtTitle.setText(Html.fromHtml(objPosts.get(position).getTitle()));
 		dataTime.setText(objPosts.get(position).getDateDay()+" - "+objPosts.get(position).getDateHour()+" - "+ objPosts.get(position).getAuthor());
 		
-		URLImageParser p = new URLImageParser(content, context);
 		
-		Spanned htmlSpan = Html.fromHtml(objPosts.get(position).getContent(), p, null);
 		
-		content.setText(htmlSpan.toString(), true);
+		
+		webView.loadData("<html><head><style>img{display: block; margin-left: auto; margin-right: auto;} p {text-align: justify} a, a:hover, a:active, a:link, a:visited {color: black; text-decoration: none} </style><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>"+objPosts.get(position).getContent()+"</body></html>", "text/html", "UTF8");
 		
 		if (objPosts.get(position).getUrlVideo().equals("")){
 			frYoutube.setVisibility(View.GONE);
@@ -159,100 +160,7 @@ public class ViewPagerFeedAdapter extends PagerAdapter{
 		((ViewPager) container).removeView((LinearLayout) object);
 	}
 
-	public class URLImageParser implements ImageGetter {
-	    Context c;
-	    View container;
-
-	    /***
-	     * Construct the URLImageParser which will execute AsyncTask and refresh the container
-	     * @param t
-	     * @param c
-	     */
-	    public URLImageParser(View t, Context c) {
-	        this.c = c;
-	        this.container = t;
-	    }
-
-	    public Drawable getDrawable(String source) {
-	        URLDrawable urlDrawable = new URLDrawable();
-
-	        // get the actual source
-	        ImageGetterAsyncTask asyncTask = 
-	            new ImageGetterAsyncTask( urlDrawable);
-
-	        asyncTask.execute(source);
-
-	        // return reference to URLDrawable where I will change with actual image from
-	        // the src tag
-	        return urlDrawable;
-	    }
-
-	    public class ImageGetterAsyncTask extends AsyncTask<String, Void, Drawable>  {
-	        URLDrawable urlDrawable;
-
-	        public ImageGetterAsyncTask(URLDrawable d) {
-	            this.urlDrawable = d;
-	        }
-
-	        @Override
-	        protected Drawable doInBackground(String... params) {
-	            String source = params[0];
-	            return fetchDrawable(source);
-	        }
-
-	        @Override
-	        protected void onPostExecute(Drawable result) {
-	            // set the correct bound according to the result from HTTP call
-	            urlDrawable.setBounds(0, 0, 0 + result.getIntrinsicWidth(), 0 
-	                    + result.getIntrinsicHeight()); 
-
-	            // change the reference of the current drawable to the result
-	            // from the HTTP call
-	            urlDrawable.drawable = result;
-
-	            // redraw the image by invalidating the container
-	            URLImageParser.this.container.invalidate();
-	        }
-
-	        /***
-	         * Get the Drawable from URL
-	         * @param urlString
-	         * @return
-	         */
-	        public Drawable fetchDrawable(String urlString) {
-	            try {
-	                InputStream is = fetch(urlString);
-	                Drawable drawable = Drawable.createFromStream(is, "src");
-	                drawable.setBounds(0, 0, 0 + drawable.getIntrinsicWidth(), 0 
-	                        + drawable.getIntrinsicHeight()); 
-	                return drawable;
-	            } catch (Exception e) {
-	                return null;
-	            } 
-	        }
-
-	        private InputStream fetch(String urlString) throws MalformedURLException, IOException {
-	            DefaultHttpClient httpClient = new DefaultHttpClient();
-	            HttpGet request = new HttpGet(urlString);
-	            HttpResponse response = httpClient.execute(request);
-	            return response.getEntity().getContent();
-	        }
-	    }
-	}
 	
-	public class URLDrawable extends BitmapDrawable {
-	    // the drawable that you need to set, you could set the initial drawing
-	    // with the loading image if you need to
-	    protected Drawable drawable;
-
-	    @Override
-	    public void draw(Canvas canvas) {
-	        // override the draw to facilitate refresh function later
-	        if(drawable != null) {
-	            drawable.draw(canvas);
-	        }
-	    }
-	}
 	
 
 }
