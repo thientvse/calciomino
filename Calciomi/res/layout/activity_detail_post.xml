@@ -25,7 +25,7 @@
             android:padding="10dp"
             android:text="PRÉCÉDENT"
             android:textColor="@color/btn_text_selector"
-            android:textSize="@dimen/size_time" />
+            android:textSize="@dimen/size_medium" />
 
         <Button
             android:id="@+id/btn_next"
@@ -37,7 +37,7 @@
             android:padding="10dp"
             android:text="SUIVANT"
             android:textColor="@color/btn_text_selector"
-            android:textSize="@dimen/size_time" />
+            android:textSize="@dimen/size_medium" />
     </RelativeLayout>
 
     <LinearLayout

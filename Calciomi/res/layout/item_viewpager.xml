@@ -36,7 +36,7 @@
                     android:layout_marginLeft="15dp"
                     android:text="Tavecchio Ex-Futur président de la fédération italienne ?"
                     android:textColor="@color/color_xanh_dam"
-                    android:textSize="@dimen/size_title"
+                    android:textSize="@dimen/size_medium"
                     android:textStyle="bold" />
 
                 <TextView
@@ -46,7 +46,7 @@
                     android:layout_marginLeft="5dp"
                     android:padding="10dp"
                     android:text="23/05/2014 à 12h23 - Par Valentin Pauluzzi"
-                    android:textColor="@color/color_xam_dam" />
+                    android:textColor="@color/color_xam_den" />
 
                 <View
                     android:id="@+id/view1"
