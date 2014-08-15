@@ -93,9 +93,9 @@ public class ViewPagerFeedAdapter extends PagerAdapter{
 		
 		
 		txtType.setText(Utils.toOnlyFirstUpcase(objPosts.get(position).getType()));
-		if (objPosts.get(position).getType().equals("breves")){
+		if (objPosts.get(position).getType().equals("articles")){
 			txtType.setTextColor(context.getResources().getColor(R.color.color_xanh_la));
-		} else if (objPosts.get(position).getType().equals("articles")) {
+		} else if (objPosts.get(position).getType().equals("breves")) {
 			txtType.setTextColor(context.getResources().getColor(R.color.color_xanh_dam));
 		} else if (objPosts.get(position).getType().equals("videos")) {
 			txtType.setTextColor(context.getResources().getColor(R.color.color_do));
@@ -121,8 +121,12 @@ public class ViewPagerFeedAdapter extends PagerAdapter{
 					context.startActivity(t);
 				}
 			});
-			
 		}
+		
+		txtTitle.setTypeface(Utils.getTypefaceBold(context));
+		txtType.setTypeface(Utils.getTypefaceBold(context));
+		dataTime.setTypeface(Utils.getTypefaceRegular(context));
+		content.setTypeface(Utils.getTypefaceRegular(context));
 		
 		// add viewpager item to viewpager
 		((ViewPager) container).addView(v);

@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.thientv.calciomino.R;
+import com.thientv.slidingmenu.MainActivity;
 import com.thientv.slidingmenu.bean.MenuItem;
+import com.thientv.slidingmenu.utils.Utils;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,8 @@ public class MenuAdapter extends ArrayAdapter<MenuItem> {
 	
 	Context context;
 	ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
+	
+	
 
 	public MenuAdapter(Context context, ArrayList<MenuItem> menuItems) {
 		super(context, R.layout.item_menu, menuItems);
@@ -60,7 +65,11 @@ public class MenuAdapter extends ArrayAdapter<MenuItem> {
 		holder.txtName.setText(menuItems.get(position).getName());
 		holder.txtName.setTextColor(getContext().getResources().getColor(menuItems.get(position).getColor()));
 		
-		
+		if (position == MainActivity.mCurrent){
+			holder.txtName.setTypeface(Utils.getTypefaceBold(context));
+		} else {
+			holder.txtName.setTypeface(Utils.getTypefaceRegular(context));
+		}
 		
 		return v;
 	}
