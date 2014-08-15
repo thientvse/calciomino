@@ -66,6 +66,9 @@ public class NewPostAdapter extends ArrayAdapter<ObjPost> {
 			holder.time = (TextView) v.findViewById(R.id.txt_time_ago);
 			holder.shortContent = (TextView) v.findViewById(R.id.txt_short_content);
 			
+			holder.txtCategory.setTypeface(Utils.getTypefaceMedium(context));
+			holder.time.setTypeface(Utils.getTypefaceRegular(context));
+			holder.shortContent.setTypeface(Utils.getTypefaceRegular(context));
 			
 			v.setTag(holder);
 		} else {

@@ -60,7 +60,11 @@ import android.widget.TextView;
 
 @SuppressLint("SimpleDateFormat")
 public class Utils {
-	public static Typeface tfTextView;
+	public static Typeface tfTextView1;
+	public static Typeface tfTextView2;
+	public static Typeface tfTextView3;
+	public static Typeface tfTextView4;
+	public static Typeface tfTextView5;
 
 	private static DisplayMetrics getDisplayMetrics(Context paramContext) {
 		DisplayMetrics localDisplayMetrics = new DisplayMetrics();
@@ -201,39 +205,39 @@ public class Utils {
 	}
 
 	public static Typeface getTypefaceBlack(Context paramContext) {
-		if (tfTextView == null)
-			tfTextView = Typeface.createFromAsset(paramContext.getAssets(),
+		if (tfTextView1 == null)
+			tfTextView1 = Typeface.createFromAsset(paramContext.getAssets(),
 					"fonts/Roboto-Black.ttf");
-		return tfTextView;
+		return tfTextView1;
 	}
 	
 	
 	public static Typeface getTypefaceLight(Context paramContext) {
-		if (tfTextView == null)
-			tfTextView = Typeface.createFromAsset(paramContext.getAssets(),
+		if (tfTextView2 == null)
+			tfTextView2 = Typeface.createFromAsset(paramContext.getAssets(),
 					"fonts/Roboto-Light.ttf");
-		return tfTextView;
+		return tfTextView2;
 	}
 
 	public static Typeface getTypefaceRegular(Context paramContext) {
-		if (tfTextView == null)
-			tfTextView = Typeface.createFromAsset(paramContext.getAssets(),
+		if (tfTextView3 == null)
+			tfTextView3 = Typeface.createFromAsset(paramContext.getAssets(),
 					"fonts/Roboto-Regular.ttf");
-		return tfTextView;
+		return tfTextView3;
 	}
 
 	public static Typeface getTypefaceBold(Context paramContext) {
-		if (tfTextView == null)
-			tfTextView = Typeface.createFromAsset(paramContext.getAssets(),
+		if (tfTextView4 == null)
+			tfTextView4 = Typeface.createFromAsset(paramContext.getAssets(),
 					"fonts/Roboto-Bold.ttf");
-		return tfTextView;
+		return tfTextView4;
 	}
 
 	public static Typeface getTypefaceMedium(Context paramContext) {
-		if (tfTextView == null)
-			tfTextView = Typeface.createFromAsset(paramContext.getAssets(),
+		if (tfTextView5 == null)
+			tfTextView5 = Typeface.createFromAsset(paramContext.getAssets(),
 					"fonts/Roboto-Medium.ttf");
-		return tfTextView;
+		return tfTextView5;
 	}
 
 	public static boolean isEmpty(String paramString) {

@@ -47,6 +47,7 @@ public class MainActivity extends SlidingFragmentActivity {
 	
 	MySQLiteHelper db;
 	
+	public static int mCurrent = 0;
 	
 	Handler mHandler = new Handler();
 	
@@ -84,6 +85,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		getSlidingMenu().setShadowDrawable(R.drawable.shadow);
 		getSlidingMenu().setShadowWidth((int) 10f);
 		
+		mCurrent = 0;
 		
 		db = new MySQLiteHelper(MainActivity.this);
 		
@@ -106,10 +108,10 @@ public class MainActivity extends SlidingFragmentActivity {
 		listMenu.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View v, int position,
+			public void onItemClick(AdapterView<?> adapterView, View v, int position,
 					long id) {
-				
-
+				mCurrent = position;
+				adapter.notifyDataSetChanged();
 		        switch(position)
 		        {
 		            case 0:
