@@ -195,10 +195,13 @@ public class MainActivity extends SlidingFragmentActivity {
 						String urlImage = news.getString("image");
 						String urlPost = news.getString("url");
 						String author = news.getString("author");
+						int dateUnix = news.getInt("date_unix");
 						String dateDay = news.getString("date_day");
 						String dateHour = news.getString("date_hour");
 						String title = news.getString("title");
 						String content = news.getString("content");
+						String video = "";
+						
 						
 						
 						objPost.setId(id);
@@ -206,10 +209,12 @@ public class MainActivity extends SlidingFragmentActivity {
 						objPost.setUrlImage(urlImage);
 						objPost.setUrlPost(urlPost);
 						objPost.setAuthor(author);
+						objPost.setDateUnix(dateUnix);
 						objPost.setDateDay(dateDay);
 						objPost.setDateHour(dateHour);
 						objPost.setTitle(title);
 						objPost.setContent(content);
+						objPost.setUrlVideo(video);
 						
 						db.insertNew(objPost);
 						
@@ -250,10 +255,13 @@ public class MainActivity extends SlidingFragmentActivity {
 						String urlImage = news.getString("image");
 						String urlPost = news.getString("url");
 						String author = news.getString("author");
+						int dateUnix = news.getInt("date_unix");
 						String dateDay = news.getString("date_day");
 						String dateHour = news.getString("date_hour");
 						String title = news.getString("title");
 						String content = news.getString("content");
+						String video = "";
+						
 						
 						
 						objPost.setId(id);
@@ -261,10 +269,12 @@ public class MainActivity extends SlidingFragmentActivity {
 						objPost.setUrlImage(urlImage);
 						objPost.setUrlPost(urlPost);
 						objPost.setAuthor(author);
+						objPost.setDateUnix(dateUnix);
 						objPost.setDateDay(dateDay);
 						objPost.setDateHour(dateHour);
 						objPost.setTitle(title);
 						objPost.setContent(content);
+						objPost.setUrlVideo(video);
 						
 						db.insertNew(objPost);
 						
@@ -305,10 +315,13 @@ public class MainActivity extends SlidingFragmentActivity {
 							String urlImage = news.getString("image");
 							String urlPost = news.getString("url");
 							String author = news.getString("author");
+							int dateUnix = news.getInt("date_unix");
 							String dateDay = news.getString("date_day");
 							String dateHour = news.getString("date_hour");
 							String title = news.getString("title");
 							String content = news.getString("content");
+							String video = news.getString("video_url");
+							objPost.setUrlVideo(video);
 							
 							
 							objPost.setId(id);
@@ -316,10 +329,12 @@ public class MainActivity extends SlidingFragmentActivity {
 							objPost.setUrlImage(urlImage);
 							objPost.setUrlPost(urlPost);
 							objPost.setAuthor(author);
+							objPost.setDateUnix(dateUnix);
 							objPost.setDateDay(dateDay);
 							objPost.setDateHour(dateHour);
 							objPost.setTitle(title);
 							objPost.setContent(content);
+							objPost.setUrlVideo(video);
 							
 							db.insertNew(objPost);
 							
