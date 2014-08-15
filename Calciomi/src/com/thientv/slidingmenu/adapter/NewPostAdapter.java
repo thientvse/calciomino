@@ -8,6 +8,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.thientv.calciomino.R;
 import com.thientv.slidingmenu.bean.ObjPost;
+import com.thientv.slidingmenu.utils.Utils;
 
 import android.content.Context;
 import android.graphics.Bitmap.Config;
@@ -74,7 +75,7 @@ public class NewPostAdapter extends ArrayAdapter<ObjPost> {
 		ImageLoader.getInstance().displayImage(ObjPosts.get(position).getUrlImage(), holder.image, options);
 		
 		
-		holder.txtCategory.setText(ObjPosts.get(position).getType());
+		holder.txtCategory.setText(Utils.toOnlyFirstUpcase(ObjPosts.get(position).getType()));
 		
 		if (ObjPosts.get(position).getType().equals("articles")){
 			holder.txtCategory.setTextColor(getContext().getResources().getColor(R.color.color_xanh_dam));
@@ -86,6 +87,8 @@ public class NewPostAdapter extends ArrayAdapter<ObjPost> {
 		}
 		holder.time.setText(ObjPosts.get(position).getDateDay());
 		holder.shortContent.setText(Html.fromHtml(ObjPosts.get(position).getTitle()));
+		
+		
 		
 		return v;
 	}
