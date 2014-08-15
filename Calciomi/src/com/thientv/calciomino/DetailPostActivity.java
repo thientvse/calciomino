@@ -114,7 +114,7 @@ public class DetailPostActivity extends Activity implements OnTouchListener{
 		switch (v.getId()) {
 		case R.id.btn_back:
 			if (event.getAction() == MotionEvent.ACTION_UP){
-				finish();
+				closeActivity();
 			}
 			break;
 
@@ -193,5 +193,17 @@ public class DetailPostActivity extends Activity implements OnTouchListener{
 	    share.putExtra(Intent.EXTRA_TEXT, objPost.getUrlPost());
 	 
 	    startActivity(Intent.createChooser(share, "Share link!"));
+	}
+	
+	
+	void closeActivity(){
+		finish();
+		overridePendingTransition(R.anim.over_main_right, R.anim.trans_right_out);
+	}
+	
+	
+	@Override
+	public void onBackPressed() {
+		closeActivity();
 	}
 }
