@@ -91,9 +91,21 @@ public class MainActivity extends SlidingFragmentActivity {
 		
 		addDataMenu();
 		
-		mHandler.post(rLong);
-		mHandler.post(rShort);
-		mHandler.post(rVideo);
+//		mHandler.post(rLong);
+//		mHandler.post(rShort);
+//		mHandler.post(rVideo);
+		
+		Thread thr = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				getArticle();
+				getShort();
+				getVideo();
+			}
+		});
+		
+		thr.start();
 		
 		
 		btnback = (ImageButton) findViewById(R.id.btn_back);
