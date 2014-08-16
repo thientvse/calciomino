@@ -37,6 +37,7 @@ public class MyJsonHttpResponseHandler extends AsyncHttpResponseHandler{
 		} catch (Exception e) {
 			
 		}
+		/// ---------------------------///
 		onSuccess(response2);
 		onSuccess(response);
 	}
