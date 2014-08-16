@@ -62,9 +62,7 @@
                     android:id="@+id/txt_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="-10dp"
-                    android:layout_marginRight="-10dp"
-                    android:layout_marginTop="5dp"
+                    android:padding="10dp"
                     android:text="Content"
                     android:textSize="@dimen/size_medium"
                     android:visibility="gone" />
