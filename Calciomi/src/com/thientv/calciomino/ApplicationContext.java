@@ -2,12 +2,13 @@ package com.thientv.calciomino;
 
 import java.io.File;
 
+import android.app.Application;
+import android.content.Context;
+import android.graphics.Bitmap.CompressFormat;
+
 import com.nostra13.universalimageloader.cache.disc.impl.TotalSizeLimitedDiscCache;
-import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.FIFOLimitedMemoryCache;
-import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
-import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -16,13 +17,6 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
-
-import android.app.Application;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap.CompressFormat;
-import android.preference.PreferenceManager;
-import android.util.Log;
 
 public class ApplicationContext extends Application {
 	/**

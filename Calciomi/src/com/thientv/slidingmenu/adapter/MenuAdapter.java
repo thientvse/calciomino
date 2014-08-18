@@ -3,8 +3,8 @@ package com.thientv.slidingmenu.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.thientv.calciomino.MainActivity;
 import com.thientv.calciomino.R;
-import com.thientv.slidingmenu.MainActivity;
 import com.thientv.slidingmenu.bean.MenuItem;
 import com.thientv.slidingmenu.utils.Utils;
 
