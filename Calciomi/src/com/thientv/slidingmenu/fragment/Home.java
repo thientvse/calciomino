@@ -2,9 +2,16 @@ package com.thientv.slidingmenu.fragment;
 
 import java.util.ArrayList;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,10 +24,12 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.thientv.calciomino.DetailPostActivity;
+import com.thientv.calciomino.MainActivity;
 import com.thientv.calciomino.R;
 import com.thientv.calciomino.database.MySQLiteHelper;
 import com.thientv.slidingmenu.adapter.NewPostAdapter;
 import com.thientv.slidingmenu.bean.ObjPost;
+import com.thientv.slidingmenu.utils.PreferenceHelper;
 
 public class Home extends Fragment {
 
@@ -34,6 +43,31 @@ public class Home extends Fragment {
 	void getDataFromDB(){
 		objPosts = db.getHome(50);
 	}
+	
+	private BroadcastReceiver mReceiver;
+	
+	ProgressDialog d;
+	
+	Handler mHandler = new Handler();
+	PreferenceHelper preferenceHelper;
+	Runnable r = new Runnable() {
+		
+		@Override
+		public void run() {
+			
+			Log.i("COUNT", "DA load"+MainActivity.countCall);
+			
+			if (MainActivity.countCall == 3){
+				d.dismiss();
+				objPosts = db.getHome(50);
+				adapter = new NewPostAdapter(getActivity(), objPosts);
+				listHome.setAdapter(adapter);
+			} else {
+				mHandler.removeCallbacks(r);
+				mHandler.postDelayed(r, 2000);
+			}
+		}
+	};
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,10 +79,25 @@ public class Home extends Fragment {
 		
 		btnBack = (ImageButton) v.findViewById(R.id.btn_back);
 		
-		getDataFromDB();
+		listHome = (ListView) v.findViewById(R.id.list_home);
+		
+		preferenceHelper = new PreferenceHelper(getActivity());
+		
+		d = new ProgressDialog(getActivity());
+		d.setMessage("Retrieving data for the first time...");
+		if (db.getHome(50).size() < 1){
+			d.show();
+			mHandler.removeCallbacks(r);
+			mHandler.postDelayed(r, 2000);
+		} else {
+			d.dismiss();
+			getDataFromDB();
+		}
+		
+		
 		
 //		addDataDemo();
-		listHome = (ListView) v.findViewById(R.id.list_home);
+		
 		adapter = new NewPostAdapter(getActivity(), objPosts);
 		listHome.setAdapter(adapter);
 		
@@ -66,23 +115,47 @@ public class Home extends Fragment {
 			}
 			
 		});
+		
 
 		return v;
 	}
 	
-	void addDataDemo(){
-		objPosts.add(new ObjPost("ARTICLE", "13/08/2014", "Tavecchio Ex-Futur président de la fédération italienne ?"));
-		objPosts.add(new ObjPost("SHORT", "13/08/2014", "Retour sur la performance du Milan AC face à Manchester City : "));
-		objPosts.add(new ObjPost("VIDEO", "13/08/2014", "Le splendide lob de Pjanic contre Manchester"));
-		objPosts.add(new ObjPost("SHORT", "13/08/2014", "Tavecchio Ex-Futur président de la fédération italienne ?"));
-		objPosts.add(new ObjPost("ARTICLE", "13/08/2014", "Le splendide lob de Pjanic contre Manchester"));
-		objPosts.add(new ObjPost("ARTICLE", "13/08/2014", "Le splendide lob de Pjanic contre Manchester"));
-		objPosts.add(new ObjPost("ARTICLE", "13/08/2014", "Tavecchio Ex-Futur président de la fédération italienne ?"));
-		objPosts.add(new ObjPost("VIDEO", "13/08/2014", "Le splendide lob de Pjanic contre Manchester"));
-		objPosts.add(new ObjPost("ARTICLE", "13/08/2014", "Tavecchio Ex-Futur président de la fédération italienne ?"));
-		objPosts.add(new ObjPost("SHORT", "13/08/2014", "Le splendide lob de Pjanic contre Manchester"));
-		objPosts.add(new ObjPost("ARTICLE", "13/08/2014", "Tavecchio Ex-Futur président de la fédération italienne ?"));
+	
+	
+
+
+	private void recivedBroadcast(){
+		
+		Log.i("DATA", "Nhan duoc broadcast");
+		
+		 IntentFilter intentFilter = new IntentFilter();
+		 intentFilter.addAction("RELOAD");
+		    
+		    mReceiver = new BroadcastReceiver() {
+				
+				@Override
+				public void onReceive(Context context, Intent intent) {
+					
+					
+					getActivity().runOnUiThread(new Runnable() {
+						
+						@Override
+						public void run() {
+							d.dismiss();
+							objPosts = db.getHome(50);
+							
+							adapter = new NewPostAdapter(getActivity(), objPosts);
+							listHome.setAdapter(adapter);
+							
+						}
+					});
+				}
+			};
+			
+			// register
+			getActivity().registerReceiver(mReceiver, intentFilter);
 	}
+	
 
 	void init() {
 	}
