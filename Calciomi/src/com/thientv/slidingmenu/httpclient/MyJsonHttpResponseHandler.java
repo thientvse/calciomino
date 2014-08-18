@@ -38,6 +38,7 @@ public class MyJsonHttpResponseHandler extends AsyncHttpResponseHandler{
 			
 		}
 		/// ---------------------------///
+		// cho vao 1 thread khac o day --------
 		onSuccess(response2);
 		onSuccess(response);
 	}
