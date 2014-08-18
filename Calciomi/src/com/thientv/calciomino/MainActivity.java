@@ -5,14 +5,27 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.content.BroadcastReceiver;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
-import com.slidingmenu.lib.app.SlidingActivity;
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
-import com.thientv.calciomino.R;
 import com.thientv.calciomino.database.MySQLiteHelper;
 import com.thientv.slidingmenu.adapter.MenuAdapter;
 import com.thientv.slidingmenu.bean.MenuItem;
@@ -23,24 +36,7 @@ import com.thientv.slidingmenu.fragment.ShortPost;
 import com.thientv.slidingmenu.fragment.VideoPost;
 import com.thientv.slidingmenu.httpclient.HttpClientHelper;
 import com.thientv.slidingmenu.httpclient.MyJsonHttpResponseHandler;
-
-import android.app.Activity;
-import android.app.FragmentTransaction;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
-import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
+import com.thientv.slidingmenu.utils.PreferenceHelper;
 
 public class MainActivity extends SlidingFragmentActivity {
 
@@ -56,6 +52,8 @@ public class MainActivity extends SlidingFragmentActivity {
 	MySQLiteHelper db;
 
 	public static int mCurrent = 0;
+	
+	public static boolean Done = false;
 
 	Handler mHandler = new Handler();
 
@@ -81,6 +79,8 @@ public class MainActivity extends SlidingFragmentActivity {
 			getVideo();
 		}
 	};
+	
+	public static int countCall = 0;
 
 	// admod
 	/** The log tag. */
@@ -94,6 +94,10 @@ public class MainActivity extends SlidingFragmentActivity {
 
 	/** The view to show the ad. */
 	private AdView adView;
+	
+	PreferenceHelper preferenceHelper;
+	
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -105,6 +109,9 @@ public class MainActivity extends SlidingFragmentActivity {
 		getSlidingMenu().setBehindOffset(100);
 		getSlidingMenu().setShadowDrawable(R.drawable.shadow);
 		getSlidingMenu().setShadowWidth((int) 10f);
+	
+		preferenceHelper = new PreferenceHelper(MainActivity.this);
+		
 
 		mCurrent = 0;
 
@@ -341,6 +348,7 @@ public class MainActivity extends SlidingFragmentActivity {
 
 					@Override
 					public void onFailure(Throwable error) {
+						countCall = countCall + 1;
 					}
 
 					@Override
@@ -379,17 +387,20 @@ public class MainActivity extends SlidingFragmentActivity {
 								objPost.setUrlVideo(video);
 
 								db.insertNew(objPost);
+								
 
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
 						}
-
+						countCall = countCall + 1;
 					}
 
 				});
 
 		httpClientHelper.getLongPost();
+		
+		
 	}
 
 	// -------------- get short --------------------//
@@ -399,6 +410,7 @@ public class MainActivity extends SlidingFragmentActivity {
 
 					@Override
 					public void onFailure(Throwable error) {
+						countCall = countCall + 1;
 					}
 
 					@Override
@@ -437,17 +449,20 @@ public class MainActivity extends SlidingFragmentActivity {
 								objPost.setUrlVideo(video);
 
 								db.insertNew(objPost);
-
+								
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
 						}
+						
+						countCall = countCall + 1;
 
 					}
 
 				});
 
 		httpClientHelper.getShortPost();
+		
 	}
 
 	// -------------- get video --------------------//
@@ -457,6 +472,7 @@ public class MainActivity extends SlidingFragmentActivity {
 
 					@Override
 					public void onFailure(Throwable error) {
+						countCall = countCall + 1;
 					}
 
 					@Override
@@ -496,12 +512,13 @@ public class MainActivity extends SlidingFragmentActivity {
 								objPost.setUrlVideo(video);
 
 								db.insertNew(objPost);
-
+								
+								
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
 						}
-
+						countCall = countCall + 1;
 					}
 
 				});

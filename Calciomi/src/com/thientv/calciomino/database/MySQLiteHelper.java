@@ -16,7 +16,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 	private static final String TAG = MySQLiteHelper.class.getSimpleName();
 //	public static final String DATABASE_NAME = Environment.getExternalStorageDirectory()+"/vChat.db";
 	public static final String DATABASE_NAME = "Calciomino.db";
-	public static final int DATABASE_VERSION = 3;
+	public static final int DATABASE_VERSION = 20;
 
 	
 	// tao cac truong
