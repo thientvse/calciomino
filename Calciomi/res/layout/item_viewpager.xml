@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -11,7 +12,7 @@
         android:orientation="vertical"
         android:visibility="visible" >
 
-        <ScrollView
+        <com.thientv.slidingmenu.utils.MyScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="none" >
@@ -94,7 +95,7 @@
                         android:src="@drawable/btn_play_youtube" />
                 </FrameLayout>
             </LinearLayout>
-        </ScrollView>
+        </com.thientv.slidingmenu.utils.MyScrollView>
     </LinearLayout>
 
 </LinearLayout>
