@@ -1,4 +1,4 @@
-package com.thientv.slidingmenu;
+package com.thientv.calciomino;
 
 import java.util.ArrayList;
 

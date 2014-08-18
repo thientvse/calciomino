@@ -3,7 +3,6 @@ package com.thientv.calciomino;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
-import com.thientv.slidingmenu.MainActivity;
 
 import android.app.Activity;
 import android.content.Intent;
