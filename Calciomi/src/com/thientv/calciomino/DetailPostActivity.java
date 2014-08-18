@@ -7,6 +7,7 @@ import com.thientv.calciomino.database.MySQLiteHelper;
 import com.thientv.slidingmenu.adapter.NewPostAdapter;
 import com.thientv.slidingmenu.adapter.ViewPagerFeedAdapter;
 import com.thientv.slidingmenu.bean.ObjPost;
+import com.thientv.slidingmenu.utils.CustomViewPager;
 import com.thientv.slidingmenu.utils.Utils;
 
 import android.app.Activity;
@@ -32,7 +33,7 @@ public class DetailPostActivity extends Activity implements OnTouchListener{
 	
 	TextView txtType, txtTitle;
 	
-	ViewPager pager;
+	CustomViewPager pager;
 	ViewPagerFeedAdapter adapter;
 	MySQLiteHelper db;
 	
@@ -48,6 +49,8 @@ public class DetailPostActivity extends Activity implements OnTouchListener{
 	ArrayList<ObjPost> nears = new ArrayList<ObjPost>();
 	
 	Button btnPrev, btnNext;
+	
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +96,7 @@ public class DetailPostActivity extends Activity implements OnTouchListener{
 		Utils.setListViewHeightBasedOnChildren(lsNear);
 		
 		
-		pager = (ViewPager) findViewById(R.id.pager);
+		pager = (CustomViewPager) findViewById(R.id.pager);
 		adapter = new ViewPagerFeedAdapter(DetailPostActivity.this, objPosts);
 		
 		pager.setAdapter(adapter);

@@ -62,8 +62,8 @@ public class IntroScreenActivity extends Activity {
 			@Override
 			public void onAdLoaded() {
 				displayInterstitial();
-				mHandler.removeCallbacks(r);
-				mHandler.postDelayed(r, 7000);
+//				mHandler.removeCallbacks(r);
+//				mHandler.postDelayed(r, 7000);
 			}
 
 			@Override
@@ -90,6 +90,7 @@ public class IntroScreenActivity extends Activity {
 	  }
 	
 	
+
 	void gotoMain(){
 		Intent t = new Intent(IntroScreenActivity.this, MainActivity.class);
 		finish();
