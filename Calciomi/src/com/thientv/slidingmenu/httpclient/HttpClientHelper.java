@@ -32,6 +32,9 @@ public class HttpClientHelper {
 	// get thong tin video
 	private static final String GET_VIDEO = "/json-exports/videos";
 	
+	// dang ki gcm
+	private static final String REG_GCM = "/PushAppCustom00/register.php";
+	
 	
 	// khai bao context
 	private Context context;
@@ -111,6 +114,16 @@ public class HttpClientHelper {
 	public void getVideoPost() {
 		get(getAbsoluteUrl(BASE_URL, GET_VIDEO), asyncHttpResponseHandler);
 		Log.i("URL", "URL: "+getUrlPostWithParams(BASE_URL, GET_VIDEO, null));
+	}
+	
+	//register gcm
+	public void registerGCM(String regId, String name, String email) {
+		RequestParams params = new RequestParams();
+		params.add("regId", regId);
+		params.add("name", name);
+		params.add("email", email);
+		post(REG_GCM, params, asyncHttpResponseHandler);
+		Log.i("URL", "URL: "+getUrlPostWithParams(BASE_URL, REG_GCM, params));
 	}
 	
 	

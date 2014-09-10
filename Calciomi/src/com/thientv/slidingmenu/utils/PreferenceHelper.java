@@ -12,6 +12,8 @@ public class PreferenceHelper {
 	
 	public static final String DONE = "done";
 	
+	public static final String REG_ID = "reg_id";
+	
 	
 	public PreferenceHelper(Context context) {
 		this.sharedPreferences = context.getSharedPreferences("calciomino", 0);
@@ -29,6 +31,10 @@ public class PreferenceHelper {
 		return this.sharedPreferences.getString(DONE, "");
 	}
 	
+	public String getRegId(){
+		return this.sharedPreferences.getString(REG_ID, "");
+	}
+	
 	
 	//------------------------------------------------//
 	public void setCount(int value){
@@ -40,6 +46,12 @@ public class PreferenceHelper {
 	public void setDone(String value){
 		SharedPreferences.Editor localEditor = this.sharedPreferences.edit();
 		localEditor.putString(DONE, value);
+		localEditor.commit();
+	}
+	
+	public void setRegId(String value){
+		SharedPreferences.Editor localEditor = this.sharedPreferences.edit();
+		localEditor.putString(REG_ID, value);
 		localEditor.commit();
 	}
 

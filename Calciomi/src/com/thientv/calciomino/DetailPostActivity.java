@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -103,6 +104,25 @@ public class DetailPostActivity extends Activity implements OnTouchListener{
 		
 		pager.setCurrentItem(position);
 		
+		pager.setOnPageChangeListener(new OnPageChangeListener() {
+			
+			@Override
+			public void onPageSelected(int position) {
+				DetailPostActivity.this.position = pager.getCurrentItem();
+			}
+			
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				
+			}
+			
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 		init();
 	}
 	
@@ -131,8 +151,14 @@ public class DetailPostActivity extends Activity implements OnTouchListener{
 				if (position < 1){
 					
 				}else {
-					pager.setCurrentItem(position-1);
-					position = position-1;
+					 if( position == 1){
+						 pager.setCurrentItem(0);
+						 position = 0;
+					 } else {
+						pager.setCurrentItem(position-1);
+						position = position-1;
+					}
+					
 				}
 				
 			}

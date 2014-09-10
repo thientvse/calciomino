@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -45,7 +47,7 @@ public class MainActivity extends SlidingFragmentActivity {
 	ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
 	Fragment frag = null;
 
-	ImageButton btnback;
+	ImageButton btnback, btnRefresh;
 
 	public static String mType = "home";
 
@@ -80,6 +82,8 @@ public class MainActivity extends SlidingFragmentActivity {
 		}
 	};
 	
+	ProgressBar progressBar;
+	
 	public static int countCall = 0;
 
 	// admod
@@ -97,7 +101,9 @@ public class MainActivity extends SlidingFragmentActivity {
 	
 	PreferenceHelper preferenceHelper;
 	
+	Thread thr;
 	
+	static int pos = 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -123,7 +129,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		// mHandler.post(rShort);
 		// mHandler.post(rVideo);
 
-		Thread thr = new Thread(new Runnable() {
+		thr = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
@@ -132,10 +138,16 @@ public class MainActivity extends SlidingFragmentActivity {
 				getVideo();
 			}
 		});
+		
+		sendDeviceId();
 
 		thr.start();
 
 		btnback = (ImageButton) findViewById(R.id.btn_back);
+		
+		progressBar = (ProgressBar) findViewById(R.id.progressBar1);
+		
+		btnRefresh = (ImageButton) findViewById(R.id.btn_refresh);
 		listMenu = (ListView) findViewById(R.id.list_menu);
 		adapter = new MenuAdapter(MainActivity.this, menuItems);
 		listMenu.setAdapter(adapter);
@@ -153,18 +165,22 @@ public class MainActivity extends SlidingFragmentActivity {
 				switch (position) {
 				case 0:
 					toggle();
+					pos = 0;
 					frag = new Home();
 					break;
 				case 1:
 					toggle();
+					pos = 1;
 					frag = new LongPost();
 					break;
 				case 2:
 					toggle();
+					pos = 2;
 					frag = new ShortPost();
 					break;
 				case 3:
 					toggle();
+					pos = 3;
 					frag = new VideoPost();
 					break;
 				}
@@ -235,6 +251,12 @@ public class MainActivity extends SlidingFragmentActivity {
 		if (adView != null) {
 			adView.destroy();
 		}
+		
+		if (thr != null){
+			Thread.interrupted();
+		}
+		System.exit(0);
+		
 		super.onDestroy();
 	}
 
@@ -321,6 +343,67 @@ public class MainActivity extends SlidingFragmentActivity {
 				toggle();
 			}
 		});
+		
+		btnRefresh.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				btnRefresh.setVisibility(View.GONE);
+				progressBar.setVisibility(View.VISIBLE);
+				countCall = 0;
+				RefreshAsynTask asyn = new RefreshAsynTask();
+				asyn.execute("");
+			/*	Thread thr1 = new Thread(new Runnable() {
+
+					@Override
+					public void run() {
+						getArticle();
+						getShort();
+						getVideo();
+						btnRefresh.setVisibility(View.VISIBLE);
+						progressBar.setVisibility(View.GONE);
+							
+					}
+				});
+				
+				thr1.start();*/
+			}
+		});
+	}
+	
+	private class RefreshAsynTask extends AsyncTask<String, String, String>{
+
+		@Override
+		protected String doInBackground(String... params) {
+			getArticle();
+			getShort();
+			getVideo();	
+			return "";
+		}
+		
+		
+		
+		@Override
+		protected void onProgressUpdate(String... values) {
+			if (countCall == 3){
+				btnRefresh.setVisibility(View.VISIBLE);
+				progressBar.setVisibility(View.GONE);
+				adapter.notifyDataSetChanged();
+			}
+		}
+
+
+
+		@Override
+		protected void onPostExecute(String result) {
+			
+		}
+
+
+
+		
+		
+		
 	}
 
 	protected void replaceFragment(Fragment frag) {
@@ -349,6 +432,8 @@ public class MainActivity extends SlidingFragmentActivity {
 					@Override
 					public void onFailure(Throwable error) {
 						countCall = countCall + 1;
+						btnRefresh.setVisibility(View.VISIBLE);
+						progressBar.setVisibility(View.GONE);
 					}
 
 					@Override
@@ -411,6 +496,8 @@ public class MainActivity extends SlidingFragmentActivity {
 					@Override
 					public void onFailure(Throwable error) {
 						countCall = countCall + 1;
+						btnRefresh.setVisibility(View.VISIBLE);
+						progressBar.setVisibility(View.GONE);
 					}
 
 					@Override
@@ -473,10 +560,15 @@ public class MainActivity extends SlidingFragmentActivity {
 					@Override
 					public void onFailure(Throwable error) {
 						countCall = countCall + 1;
+						btnRefresh.setVisibility(View.VISIBLE);
+						progressBar.setVisibility(View.GONE);
 					}
 
 					@Override
 					public void onSuccess(JSONArray re) {
+						
+						btnRefresh.setVisibility(View.VISIBLE);
+						progressBar.setVisibility(View.GONE);
 						// insert
 						for (int i = 0; i < re.length(); i++) {
 							try {
@@ -525,4 +617,23 @@ public class MainActivity extends SlidingFragmentActivity {
 
 		httpClientHelper.getVideoPost();
 	}
+	
+	void sendDeviceId(){
+		HttpClientHelper httpClientHelper = new HttpClientHelper(new MyJsonHttpResponseHandler(){
+
+			@Override
+			public void onFailure(Throwable error) {
+				Log.i("DATA", "Cap nhat device that bai");
+			}
+
+			@Override
+			public void onSuccess(JSONObject re) {
+				Log.i("DATA", "Cap nhat device thanh cong");
+			}
+		});
+		
+		httpClientHelper.registerGCM(preferenceHelper.getRegId(), "User ", "abc1234@gmail.com");
+	}
+	
+	
 }
